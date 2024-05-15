@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: jwt-day2
+  profiles:
+    active: dev
