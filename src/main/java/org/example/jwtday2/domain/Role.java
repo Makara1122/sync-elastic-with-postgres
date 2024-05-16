@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Set;
@@ -12,6 +13,8 @@ import java.util.Set;
 @Table(name = "role_tbl")
 @Getter
 @Setter
+@NoArgsConstructor
+@Document(indexName = "role")
 
 public class Role implements GrantedAuthority {
     @Id

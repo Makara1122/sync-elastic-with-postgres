@@ -41,7 +41,7 @@ public class AuthorServiceImpl implements AuthorService{
             Author author = authorMapper.toAuthor(authorRequest);
            author.setRoles(roles);
            author.setPassword(new BCryptPasswordEncoder().encode(authorRequest.password()));
-           elsRepository.save(author);
+//           elsRepository.save(author);
          return authorMapper.toAuthorResponse(  authorReposity.save(author));
     }
 
@@ -53,7 +53,7 @@ public class AuthorServiceImpl implements AuthorService{
     @Override
     public AuthorResponse updateAuthor(String id, AuthorRequest authorRequest) {
         Author author    = authorReposity.findById(id).orElseThrow(() -> new RuntimeException("Author not found"));
-        author.setPassword(authorRequest.password());
+        author.setPassword(new BCryptPasswordEncoder().encode(authorRequest.password()));
         author.setEmail(authorRequest.email());
         author.setName(authorRequest.name());
         Set<Role> roles = new HashSet<>();

@@ -1,5 +1,9 @@
 package org.example.jwtday2.restcontroller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.jwtday2.base.BaseResponse;
@@ -28,6 +32,30 @@ public class AuthRestController {
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
+    @Operation(summary = "Register new user"
+            , requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            content = @Content(schema = @Schema(implementation = AuthorRequest.class),
+                    examples = @ExampleObject(value = """
+                            {
+                                "email": "string@gmail.com",
+                                "password": "string",
+                                "name": "string",
+                                "roles": [
+                                  "ADMIN"
+                                ],
+                                "isAccountExpired": "false",
+                                "isAccountLocked": "false",
+                                "isCredentialsExpired": "false",
+                                "isDisabled": "false"
+                              }
+                                                        
+                                                        
+                            """)
+
+            )
+    )
+    )
+
     public BaseResponse<AuthorResponse> register(@Valid  @RequestBody AuthorRequest request){
         return  BaseResponse.<AuthorResponse>createSuccess().setPayload(authorService.createAuthor(request));
     }
